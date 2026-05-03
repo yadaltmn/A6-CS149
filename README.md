@@ -248,4 +248,4 @@ Jesse Mendoza - I learned how to replace process-based parallelism with thread-b
 
 ## Acknowledgements
 
-Thanks to the course instructor for the assignment guidance, classmates for discussing edge cases, ZyBooks for the testing environment, and online references for clarifying C library and pthread behavior.
+Thanks to the course instructor for the assignment guidance, classmates for discussing edge cases, ZyBooks for the testing environment, and online references fo
