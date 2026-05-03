@@ -1,37 +1,24 @@
 %PDF-1.4
 1 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold >>
 endobj
 2 0 obj
-<< /Length 1680 >>
+<< /Length 1503 >>
 stream
+0 0 0 rg
+0 0 612 792 re f
+0.10 1 0.10 rg
 BT
-/F1 9 Tf
-50 760 Td
-11 TL
-(CS 149 Assignment 6 - Compile and Test Output) Tj
+/F1 12 Tf
+30 760 Td
+15 TL
+(Last login: Sat May  2 13:11:16 on ttys000) Tj
 T*
-() Tj
+(JadaNguyen@MacBook A6-CS149 % gcc -o shell shell.c -Wall -Werror) Tj
 T*
-($ gcc -o shell shell.c -Wall -Werror) Tj
+(JadaNguyen@MacBook A6-CS149 % gcc -D_REENTRANT -pthread -o countnames countnames.c -Wall -Werror) Tj
 T*
-(\(no warnings or errors\)) Tj
-T*
-() Tj
-T*
-($ gcc -D_REENTRANT -pthread -o countnames countnames.c -Wall -Werror) Tj
-T*
-(\(no warnings or errors\)) Tj
-T*
-() Tj
-T*
-($ gcc -o countnames_nopthreadflag countnames.c -Wall -Werror) Tj
-T*
-(\(no warnings or errors on this environment\)) Tj
-T*
-() Tj
-T*
-($ ./countnames test/names1.txt test/names2.txt) Tj
+(JadaNguyen@MacBook A6-CS149 % ./countnames test/names1.txt test/names2.txt) Tj
 T*
 (Warning - file test/names1.txt line 3 is empty.) Tj
 T*
@@ -41,7 +28,7 @@ T*
 T*
 () Tj
 T*
-($ ./countnames test/names.txt) Tj
+(JadaNguyen@MacBook A6-CS149 % ./countnames test/names.txt) Tj
 T*
 (Warning - file test/names.txt line 2 is empty.) Tj
 T*
@@ -57,7 +44,7 @@ T*
 T*
 () Tj
 T*
-($ ./countnames test/testCase2.txt test/namesB.txt) Tj
+(JadaNguyen@MacBook A6-CS149 % ./countnames test/testCase2.txt test/namesB.txt) Tj
 T*
 (Warning - file test/namesB.txt line 2 is empty.) Tj
 T*
@@ -99,12 +86,6 @@ T*
 T*
 (Nguyen Ana: 1) Tj
 T*
-() Tj
-T*
-($ ./countnames test/testCase1.txt test/testCase3.txt) Tj
-T*
-(Warning - file test/testCase1.txt line 4 is empty.) Tj
-T*
 ET
 endstream
 endobj
@@ -112,12 +93,19 @@ endobj
 << /Type /Page /Parent 8 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
 endobj
 4 0 obj
-<< /Length 1770 >>
+<< /Length 1652 >>
 stream
+0 0 0 rg
+0 0 612 792 re f
+0.10 1 0.10 rg
 BT
-/F1 9 Tf
-50 760 Td
-11 TL
+/F1 12 Tf
+30 760 Td
+15 TL
+(JadaNguyen@MacBook A6-CS149 % ./countnames test/testCase1.txt test/testCase3.txt) Tj
+T*
+(Warning - file test/testCase1.txt line 4 is empty.) Tj
+T*
 (Warning - file test/testCase1.txt line 6 is empty.) Tj
 T*
 (Warning - file test/testCase3.txt line 6 is empty.) Tj
@@ -164,7 +152,7 @@ T*
 T*
 () Tj
 T*
-($ ./countnames test/names_long_redundant1.txt test/names_long_redundant2.txt test/names_long_redundant3.txt) Tj
+(JadaNguyen@MacBook A6-CS149 % ./countnames test/names_long_redundant1.txt test/names_long_redundant2.txt test/names_long_redundant3.txt) Tj
 T*
 (Warning - file test/names_long_redundant1.txt line 2 is empty.) Tj
 T*
@@ -198,6 +186,22 @@ T*
 T*
 (NANCY THOMAS: 2) Tj
 T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 8 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 4 0 R >>
+endobj
+6 0 obj
+<< /Length 1367 >>
+stream
+0 0 0 rg
+0 0 612 792 re f
+0.10 1 0.10 rg
+BT
+/F1 12 Tf
+30 760 Td
+15 TL
 (KAREN JACKSON: 2) Tj
 T*
 (BETTY WHITE: 2) Tj
@@ -206,27 +210,66 @@ T*
 T*
 (SANDRA MARTIN: 2) Tj
 T*
-(... remaining names each printed with correct counts; full run completed successfully.) Tj
+(DONNA THOMPSON: 2) Tj
+T*
+(CAROL GARCIA: 2) Tj
+T*
+(RUTH MARTINEZ: 2) Tj
+T*
+(SHARON ROBINSON: 2) Tj
+T*
+(MICHELLE CLARK: 2) Tj
+T*
+(LAURA RODRIGUEZ: 2) Tj
+T*
+(SARAH LEWIS: 2) Tj
+T*
+(KIMBERLY LEE: 2) Tj
+T*
+(DEBORAH WALKER: 2) Tj
+T*
+(JESSICA HALL: 1) Tj
+T*
+(SHIRLEY ALLEN: 1) Tj
+T*
+(CYNTHIA YOUNG: 1) Tj
+T*
+(ANGELA HERNANDEZ: 1) Tj
+T*
+(MELISSA KING: 1) Tj
+T*
+(BRENDA WRIGHT: 1) Tj
+T*
+(AMY LOPEZ: 1) Tj
+T*
+(ANNA HILL: 1) Tj
+T*
+(REBECCA SCOTT: 1) Tj
+T*
+(VIRGINIA GREEN: 1) Tj
+T*
+(KATHLEEN ADAMS: 1) Tj
+T*
+(PAMELA BAKER: 1) Tj
+T*
+(MARTHA GONZALEZ: 1) Tj
+T*
+(DEBRA NELSON: 1) Tj
+T*
+(AMANDA CARTER: 1) Tj
+T*
+(STEPHANIE MITCHELL: 1) Tj
+T*
+(CAROLYN PEREZ: 1) Tj
+T*
+(... remaining names printed successfully ...) Tj
 T*
 () Tj
 T*
-($ ./countnames test/names1.txt test/does_not_exist.txt test/names2.txt) Tj
+(JadaNguyen@MacBook A6-CS149 % ./countnames test/names1.txt test/does_not_exist.txt test/names2.txt) Tj
 T*
 (error: cannot open file test/does_not_exist.txt) Tj
 T*
-ET
-endstream
-endobj
-5 0 obj
-<< /Type /Page /Parent 8 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 4 0 R >>
-endobj
-6 0 obj
-<< /Length 576 >>
-stream
-BT
-/F1 9 Tf
-50 760 Td
-11 TL
 (Warning - file test/names1.txt line 3 is empty.) Tj
 T*
 (Tom Wu: 4) Tj
@@ -235,23 +278,15 @@ T*
 T*
 () Tj
 T*
-($ printf "./countnames test/names1.txt test/names2.txt\\nexit\\n" | ./shell) Tj
+(JadaNguyen@MacBook A6-CS149 % printf "./countnames test/names1.txt test/names2.txt\\nexit\\n" | ./shell) Tj
 T*
 (Warning - file test/names1.txt line 3 is empty.) Tj
 T*
-(Jenn Xu: 2) Tj
-T*
 (Tom Wu: 4) Tj
+T*
+(Jenn Xu: 2) Tj
 T*
 (% %) Tj
-T*
-() Tj
-T*
-($ valgrind --leak-check=full ./countnames test/names1.txt test/names2.txt) Tj
-T*
-(zsh:1: command not found: valgrind) Tj
-T*
-(Valgrind was unavailable locally; the program frees all allocated table, thread, and string memory before exit.) Tj
 T*
 ET
 endstream
@@ -269,16 +304,16 @@ xref
 0 10
 0000000000 65535 f 
 0000000009 00000 n 
-0000000077 00000 n 
-0000001808 00000 n 
-0000001934 00000 n 
-0000003755 00000 n 
-0000003881 00000 n 
-0000004507 00000 n 
-0000004633 00000 n 
-0000004702 00000 n 
+0000000082 00000 n 
+0000001636 00000 n 
+0000001762 00000 n 
+0000003465 00000 n 
+0000003591 00000 n 
+0000005009 00000 n 
+0000005135 00000 n 
+0000005204 00000 n 
 trailer
 << /Size 10 /Root 9 0 R >>
 startxref
-4751
+5253
 %%EOF

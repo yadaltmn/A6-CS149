@@ -233,7 +233,8 @@ error: cannot open file test/does_not_exist.txt
 
 ## Lessons learned
 
-Jada-Lien Nguyen - I learned how pthreads share the same address space, so the parent process no longer needs `mmap` regions for each worker. I also learned why the entire lookup, insert, resize, and increment operation must be protected by a mutex when multiple threads update one shared data structure.
+Name: Jada-Lien Nguyen
+Description: I completed the threaded `countnames` implementation by creating one pthread for each input file and protecting the shared dynamic name-count table with a mutex. I also tested the program with single-file, multi-file, missing-file, and resizing cases and documented how to compile, run, and verify the assignment.
 
 Jesse Mendoza - I learned how to replace process-based parallelism with thread-based parallelism. This assignment helped me understand `pthread_create`, `pthread_join`, and how mutex locking prevents corrupted counts when several threads update the same heap table.
 
