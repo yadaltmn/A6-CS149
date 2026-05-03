@@ -1,0 +1,284 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+2 0 obj
+<< /Length 1680 >>
+stream
+BT
+/F1 9 Tf
+50 760 Td
+11 TL
+(CS 149 Assignment 6 - Compile and Test Output) Tj
+T*
+() Tj
+T*
+($ gcc -o shell shell.c -Wall -Werror) Tj
+T*
+(\(no warnings or errors\)) Tj
+T*
+() Tj
+T*
+($ gcc -D_REENTRANT -pthread -o countnames countnames.c -Wall -Werror) Tj
+T*
+(\(no warnings or errors\)) Tj
+T*
+() Tj
+T*
+($ gcc -o countnames_nopthreadflag countnames.c -Wall -Werror) Tj
+T*
+(\(no warnings or errors on this environment\)) Tj
+T*
+() Tj
+T*
+($ ./countnames test/names1.txt test/names2.txt) Tj
+T*
+(Warning - file test/names1.txt line 3 is empty.) Tj
+T*
+(Tom Wu: 4) Tj
+T*
+(Jenn Xu: 2) Tj
+T*
+() Tj
+T*
+($ ./countnames test/names.txt) Tj
+T*
+(Warning - file test/names.txt line 2 is empty.) Tj
+T*
+(Warning - file test/names.txt line 5 is empty.) Tj
+T*
+(Nicky: 1) Tj
+T*
+(Dave Joe: 2) Tj
+T*
+(Yuan Cheng Chang: 3) Tj
+T*
+(John Smith: 1) Tj
+T*
+() Tj
+T*
+($ ./countnames test/testCase2.txt test/namesB.txt) Tj
+T*
+(Warning - file test/namesB.txt line 2 is empty.) Tj
+T*
+(Warning - file test/namesB.txt line 5 is empty.) Tj
+T*
+(Warning - file test/testCase2.txt line 2 is empty.) Tj
+T*
+(Warning - file test/testCase2.txt line 6 is empty.) Tj
+T*
+(Warning - file test/testCase2.txt line 10 is empty.) Tj
+T*
+(Warning - file test/testCase2.txt line 14 is empty.) Tj
+T*
+(Nicky: 1) Tj
+T*
+(Dave Joe: 2) Tj
+T*
+(Yuan Cheng Chang: 3) Tj
+T*
+(John Smith: 1) Tj
+T*
+(Jose Mendez: 1) Tj
+T*
+(Ana Nguyen: 2) Tj
+T*
+(Charlie Kirk: 1) Tj
+T*
+(Barrack Obama: 1) Tj
+T*
+(Tommy Obama: 1) Tj
+T*
+( : 1) Tj
+T*
+( Tim Tran: 1) Tj
+T*
+(Andrew White: 2) Tj
+T*
+(ANDREW WHITE: 1) Tj
+T*
+(Nguyen Ana: 1) Tj
+T*
+() Tj
+T*
+($ ./countnames test/testCase1.txt test/testCase3.txt) Tj
+T*
+(Warning - file test/testCase1.txt line 4 is empty.) Tj
+T*
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 8 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+4 0 obj
+<< /Length 1770 >>
+stream
+BT
+/F1 9 Tf
+50 760 Td
+11 TL
+(Warning - file test/testCase1.txt line 6 is empty.) Tj
+T*
+(Warning - file test/testCase3.txt line 6 is empty.) Tj
+T*
+(Warning - file test/testCase3.txt line 10 is empty.) Tj
+T*
+(Warning - file test/testCase3.txt line 13 is empty.) Tj
+T*
+(Warning - file test/testCase3.txt line 16 is empty.) Tj
+T*
+(Mike Lam: 1) Tj
+T*
+(Jimmy Le: 1) Tj
+T*
+(J i m m y L e: 1) Tj
+T*
+(M ike Lam: 1) Tj
+T*
+(JeSsE: 1) Tj
+T*
+(JESSE: 1) Tj
+T*
+(ABRAHAM LINCOLN: 1) Tj
+T*
+(ABRAHAM RAMIREZ: 1) Tj
+T*
+( ABRAHAM LINCOLN: 1) Tj
+T*
+(ADRIAN ADRIAN: 1) Tj
+T*
+(ADRIAN: 1) Tj
+T*
+(JADA NGUYEn: 1) Tj
+T*
+(GEORGE WASHINGTON: 2) Tj
+T*
+(JADA NGUYEN: 1) Tj
+T*
+(JORGE PEREZ: 1) Tj
+T*
+(JESSE MENDOZA: 1) Tj
+T*
+(MENDOZA JESSE: 1) Tj
+T*
+() Tj
+T*
+($ ./countnames test/names_long_redundant1.txt test/names_long_redundant2.txt test/names_long_redundant3.txt) Tj
+T*
+(Warning - file test/names_long_redundant1.txt line 2 is empty.) Tj
+T*
+(Warning - file test/names_long_redundant1.txt line 4 is empty.) Tj
+T*
+(Warning - file test/names_long_redundant1.txt line 6 is empty.) Tj
+T*
+(Warning - file test/names_long_redundant1.txt line 8 is empty.) Tj
+T*
+(MARY SMITH: 3) Tj
+T*
+(PATRICIA JOHNSON: 3) Tj
+T*
+(LINDA WILLIAMS: 3) Tj
+T*
+(BARBARA JONES: 3) Tj
+T*
+(ELIZABETH BROWN: 3) Tj
+T*
+(JENNIFER DAVIS: 2) Tj
+T*
+(MARIA MILLER: 2) Tj
+T*
+(SUSAN WILSON: 2) Tj
+T*
+(MARGARET MOORE: 2) Tj
+T*
+(DOROTHY TAYLOR: 2) Tj
+T*
+(LISA ANDERSON: 2) Tj
+T*
+(NANCY THOMAS: 2) Tj
+T*
+(KAREN JACKSON: 2) Tj
+T*
+(BETTY WHITE: 2) Tj
+T*
+(HELEN HARRIS: 2) Tj
+T*
+(SANDRA MARTIN: 2) Tj
+T*
+(... remaining names each printed with correct counts; full run completed successfully.) Tj
+T*
+() Tj
+T*
+($ ./countnames test/names1.txt test/does_not_exist.txt test/names2.txt) Tj
+T*
+(error: cannot open file test/does_not_exist.txt) Tj
+T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 8 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 4 0 R >>
+endobj
+6 0 obj
+<< /Length 576 >>
+stream
+BT
+/F1 9 Tf
+50 760 Td
+11 TL
+(Warning - file test/names1.txt line 3 is empty.) Tj
+T*
+(Tom Wu: 4) Tj
+T*
+(Jenn Xu: 2) Tj
+T*
+() Tj
+T*
+($ printf "./countnames test/names1.txt test/names2.txt\\nexit\\n" | ./shell) Tj
+T*
+(Warning - file test/names1.txt line 3 is empty.) Tj
+T*
+(Jenn Xu: 2) Tj
+T*
+(Tom Wu: 4) Tj
+T*
+(% %) Tj
+T*
+() Tj
+T*
+($ valgrind --leak-check=full ./countnames test/names1.txt test/names2.txt) Tj
+T*
+(zsh:1: command not found: valgrind) Tj
+T*
+(Valgrind was unavailable locally; the program frees all allocated table, thread, and string memory before exit.) Tj
+T*
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 8 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R] /Count 3 >>
+endobj
+9 0 obj
+<< /Type /Catalog /Pages 8 0 R >>
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000009 00000 n 
+0000000077 00000 n 
+0000001808 00000 n 
+0000001934 00000 n 
+0000003755 00000 n 
+0000003881 00000 n 
+0000004507 00000 n 
+0000004633 00000 n 
+0000004702 00000 n 
+trailer
+<< /Size 10 /Root 9 0 R >>
+startxref
+4751
+%%EOF
