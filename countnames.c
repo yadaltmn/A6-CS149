@@ -1,6 +1,12 @@
 /*
  * countnames.c
  * Assignment 6: count names from multiple files using one pthread per file.
+ * GitHub : https://github.com/yadaltmn/A6-CS149
+ * Author :
+ * Jesse Mendoza
+ * Jada-Lien Nguyen
+ * Date modified : 05/03/2026
+ *
  */
 
 #include <pthread.h>
@@ -25,12 +31,14 @@ typedef struct
     const char *filename;
 } ThreadArgs;
 
+/* Shared dynamic table: hashBuckets gives fast lookup, insertionOrder keeps print order. */
 static NameCountData **hashBuckets = NULL;
 static NameCountData **insertionOrder = NULL;
 static int hashBucketCount = 0;
 static int insertionCount = 0;
 static int insertionCapacity = 0;
 static int hadError = 0;
+/* Protects shared table updates so multiple threads cannot modify it at the same time. */
 static pthread_mutex_t countsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 static void mark_error(void)
@@ -68,6 +76,7 @@ static unsigned hash_name(const char *s, int bucketCount)
 
 static int init_table(void)
 {
+    /* Start with a small table and grow it when more unique names are added. */
     hashBuckets = (NameCountData **)malloc(sizeof(NameCountData *) * INITIAL_HASH_CAPACITY);
     insertionOrder = (NameCountData **)malloc(sizeof(NameCountData *) * INITIAL_HASH_CAPACITY);
     if (hashBuckets == NULL || insertionOrder == NULL)
@@ -114,6 +123,7 @@ static int grow_table(void)
     NameCountData **newBuckets;
     NameCountData **newInsertionOrder;
 
+    /* Rebuild the hash table because each name may belong in a different bucket. */
     newBuckets = (NameCountData **)malloc(sizeof(NameCountData *) * newCapacity);
     newInsertionOrder = (NameCountData **)realloc(insertionOrder, sizeof(NameCountData *) * newCapacity);
     if (newBuckets == NULL || newInsertionOrder == NULL)
@@ -155,6 +165,7 @@ static int add_name_count(const char *name)
 {
     NameCountData *node;
 
+    /* Critical section: lookup, insert, resize, and increment all touch shared data. */
     pthread_mutex_lock(&countsMutex);
 
     node = lookup_name(name);
@@ -212,6 +223,7 @@ static void *count_file(void *arg)
         return NULL;
     }
 
+    /* Each worker thread reads one file and adds every non-empty line as a name. */
     while (fgets(buffer, sizeof(buffer), fp) != NULL)
     {
         lineNum++;
@@ -237,6 +249,7 @@ static void *count_file(void *arg)
 
 static void print_summary_table(void)
 {
+    /* Print in first-seen order instead of hash bucket order. */
     for (int i = 0; i < insertionCount; i++)
     {
         printf("%s: %d\n", insertionOrder[i]->name, insertionOrder[i]->count);
@@ -245,6 +258,7 @@ static void print_summary_table(void)
 
 static void free_table(void)
 {
+    /* Free each stored name and node before freeing the table arrays. */
     if (insertionOrder != NULL)
     {
         for (int i = 0; i < insertionCount; i++)
@@ -293,6 +307,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+    /* Assignment requirement: create one pthread for each input file. */
     for (int i = 0; i < threadCount; i++)
     {
         threadArgs[i].filename = argv[i + 1];
@@ -305,6 +320,7 @@ int main(int argc, char *argv[])
         }
     }
 
+    /* Wait for every file-reading thread before printing final counts. */
     for (int i = 0; i < threadCount; i++)
     {
         if (pthread_join(threads[i], NULL) != 0)
