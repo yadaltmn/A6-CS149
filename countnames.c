@@ -10,9 +10,11 @@
  */
 
 #include <pthread.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #define LINE_BUFFER_SIZE 256
 #define INITIAL_HASH_CAPACITY 10
@@ -40,6 +42,44 @@ static int insertionCapacity = 0;
 static int hadError = 0;
 /* Protects shared table updates so multiple threads cannot modify it at the same time. */
 static pthread_mutex_t countsMutex = PTHREAD_MUTEX_INITIALIZER;
+
+static int redirect(void)
+{
+    char out[64];
+    char errName[64];
+    int outFd;
+    int errFd;
+
+    snprintf(out, sizeof(out), "%d.out", getpid());
+    snprintf(errName, sizeof(errName), "%d.err", getpid());
+
+    outFd = open(out, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+    if (outFd == -1)
+    {
+        perror("open output file");
+        return 1;
+    }
+
+    errFd = open(errName, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+    if (errFd == -1)
+    {
+        perror("open error file");
+        close(outFd);
+        return 1;
+    }
+
+    if (dup2(outFd, STDOUT_FILENO) == -1 || dup2(errFd, STDERR_FILENO) == -1)
+    {
+        perror("dup2");
+        close(outFd);
+        close(errFd);
+        return 1;
+    }
+
+    close(outFd);
+    close(errFd);
+    return 0;
+}
 
 static void mark_error(void)
 {
@@ -165,7 +205,7 @@ static int add_name_count(const char *name)
 {
     NameCountData *node;
 
-    /* Critical section: lookup, insert, resize, and increment all touch shared data. */
+    /* Lookup, insert, resize, and increment all touch shared data. */
     pthread_mutex_lock(&countsMutex);
 
     node = lookup_name(name);
@@ -209,12 +249,36 @@ static int add_name_count(const char *name)
     return 0;
 }
 
+static void count_stream(FILE *fp, const char *sourceName)
+{
+    char buffer[LINE_BUFFER_SIZE];
+    int lineNum = 0;
+
+    /* Read one stream and add every non-empty line as a name. */
+    while (fgets(buffer, sizeof(buffer), fp) != NULL)
+    {
+        lineNum++;
+        buffer[strcspn(buffer, "\n")] = '\0';
+
+        if (strlen(buffer) == 0)
+        {
+            fprintf(stderr, "Warning - file %s line %d is empty.\n", sourceName, lineNum);
+            continue;
+        }
+
+        if (add_name_count(buffer) != 0)
+        {
+            fprintf(stderr, "error: unable to allocate memory while reading %s\n", sourceName);
+            mark_error();
+            break;
+        }
+    }
+}
+
 static void *count_file(void *arg)
 {
     ThreadArgs *threadArgs = (ThreadArgs *)arg;
     FILE *fp = fopen(threadArgs->filename, "r");
-    char buffer[LINE_BUFFER_SIZE];
-    int lineNum = 0;
 
     if (fp == NULL)
     {
@@ -223,25 +287,8 @@ static void *count_file(void *arg)
         return NULL;
     }
 
-    /* Each worker thread reads one file and adds every non-empty line as a name. */
-    while (fgets(buffer, sizeof(buffer), fp) != NULL)
-    {
-        lineNum++;
-        buffer[strcspn(buffer, "\n")] = '\0';
-
-        if (strlen(buffer) == 0)
-        {
-            fprintf(stderr, "Warning - file %s line %d is empty.\n", threadArgs->filename, lineNum);
-            continue;
-        }
-
-        if (add_name_count(buffer) != 0)
-        {
-            fprintf(stderr, "error: unable to allocate memory while reading %s\n", threadArgs->filename);
-            mark_error();
-            break;
-        }
-    }
+    /* Each worker thread reads one input file. */
+    count_stream(fp, threadArgs->filename);
 
     fclose(fp);
     return NULL;
@@ -284,9 +331,8 @@ int main(int argc, char *argv[])
     ThreadArgs *threadArgs;
     int status = 0;
 
-    if (argc < 2)
+    if (redirect() != 0)
     {
-        fprintf(stderr, "usage: %s file [file ...]\n", argv[0]);
         return 1;
     }
 
@@ -294,6 +340,20 @@ int main(int argc, char *argv[])
     {
         fprintf(stderr, "error: unable to allocate name count table\n");
         return 1;
+    }
+
+    if (argc == 1)
+    {
+        count_stream(stdin, "stdin");
+        if (hadError != 0)
+        {
+            status = 1;
+        }
+
+        print_summary_table();
+        free_table();
+        pthread_mutex_destroy(&countsMutex);
+        return status;
     }
 
     threads = (pthread_t *)malloc(sizeof(pthread_t) * (size_t)threadCount);
@@ -307,7 +367,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    /* Assignment requirement: create one pthread for each input file. */
+    /* Create one pthread for each input file. */
     for (int i = 0; i < threadCount; i++)
     {
         threadArgs[i].filename = argv[i + 1];

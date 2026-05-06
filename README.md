@@ -1,4 +1,4 @@
-# CS 149 Assignment 6 - Threaded Countnames
+# CS 149 Assignment 6
 
 ## Student Names
 
@@ -36,19 +36,6 @@ Run `countnames` directly with one to three input files:
 ./countnames test/names1.txt test/names2.txt
 ```
 
-You can also start the shell:
-
-```bash
-./shell
-```
-
-Then run commands inside the shell:
-
-```bash
-./countnames test/names1.txt test/names2.txt
-exit
-```
-
 Because each input file is processed by a separate thread, the order in which brand-new names first appear in the output can vary slightly between runs. The counts shown for each name are the expected results.
 
 ## Test Cases
@@ -65,12 +52,17 @@ What it tests:
 - Two threads running concurrently
 - Duplicate name aggregation across two files
 
-Expected output:
+Expected PID.err output:
 
 ```text
 Warning - file test/names1.txt line 3 is empty.
-Tom Wu: 4
+```
+
+Expected PID.out output:
+
+```text
 Jenn Xu: 2
+Tom Wu: 4
 ```
 
 ### Test 2
@@ -87,11 +79,16 @@ What it tests:
 - Duplicate names within one file
 - Names containing spaces
 
-Expected stdout:
+Expected PID.err output:
 
 ```text
 Warning - file test/names.txt line 2 is empty.
 Warning - file test/names.txt line 5 is empty.
+```
+
+Expected PID.out output:
+
+```text
 Nicky: 1
 Dave Joe: 2
 Yuan Cheng Chang: 3
@@ -113,17 +110,25 @@ What it tests:
 - Case sensitivity
 - Two threads updating the same shared table
 
-Expected output:
+Expected PID.err output:
 
 ```text
+Warning - file test/namesB.txt line 2 is empty.
+Warning - file test/namesB.txt line 5 is empty.
 Warning - file test/testCase2.txt line 2 is empty.
 Warning - file test/testCase2.txt line 6 is empty.
 Warning - file test/testCase2.txt line 10 is empty.
-Warning - file test/namesB.txt line 2 is empty.
 Warning - file test/testCase2.txt line 14 is empty.
-Warning - file test/namesB.txt line 5 is empty.
-Jose Mendez: 1
+```
+
+Expected PID.out output:
+
+```text
 Nicky: 1
+Jose Mendez: 1
+Dave Joe: 2
+Yuan Cheng Chang: 3
+John Smith: 1
 Ana Nguyen: 2
 Charlie Kirk: 1
 Barrack Obama: 1
@@ -132,10 +137,7 @@ Tommy Obama: 1
  Tim Tran: 1
 Andrew White: 2
 ANDREW WHITE: 1
-Dave Joe: 2
-Yuan Cheng Chang: 3
 Nguyen Ana: 1
-John Smith: 1
 ```
 
 The names from `test/namesB.txt` may appear before or after the names from `test/testCase2.txt` depending on thread scheduling.
@@ -155,7 +157,7 @@ What it tests:
 - Case sensitivity
 - Duplicate-looking names that should remain separate
 
-Expected output:
+Expected PID.err output:
 
 ```text
 Warning - file test/testCase1.txt line 4 is empty.
@@ -164,17 +166,22 @@ Warning - file test/testCase3.txt line 6 is empty.
 Warning - file test/testCase3.txt line 10 is empty.
 Warning - file test/testCase3.txt line 13 is empty.
 Warning - file test/testCase3.txt line 16 is empty.
+```
+
+Expected PID.out output:
+
+```text
 Mike Lam: 1
 Jimmy Le: 1
 J i m m y L e: 1
-M ike Lam: 1
-JeSsE: 1
-JESSE: 1
 ABRAHAM LINCOLN: 1
 ABRAHAM RAMIREZ: 1
  ABRAHAM LINCOLN: 1
 ADRIAN ADRIAN: 1
 ADRIAN: 1
+M ike Lam: 1
+JeSsE: 1
+JESSE: 1
 JADA NGUYEn: 1
 GEORGE WASHINGTON: 2
 JADA NGUYEN: 1
@@ -196,53 +203,19 @@ What it tests:
 - More than 10 distinct names so the dynamic table grows with `realloc`
 - Duplicate names spread across multiple files
 
-Expected output:
+Expected PID.err output:
 
 ```text
 Warning - file test/names_long_redundant1.txt line 2 is empty.
 Warning - file test/names_long_redundant1.txt line 4 is empty.
 Warning - file test/names_long_redundant1.txt line 6 is empty.
 Warning - file test/names_long_redundant1.txt line 8 is empty.
+```
+
+Expected PID.out output:
+
+```text
 MARY SMITH: 3
-PATRICIA JOHNSON: 3
-LINDA WILLIAMS: 3
-BARBARA JONES: 3
-ELIZABETH BROWN: 3
-JENNIFER DAVIS: 2
-MARIA MILLER: 2
-SUSAN WILSON: 2
-MARGARET MOORE: 2
-DOROTHY TAYLOR: 2
-LISA ANDERSON: 2
-NANCY THOMAS: 2
-KAREN JACKSON: 2
-BETTY WHITE: 2
-HELEN HARRIS: 2
-SANDRA MARTIN: 2
-DONNA THOMPSON: 2
-CAROL GARCIA: 2
-RUTH MARTINEZ: 2
-SHARON ROBINSON: 2
-MICHELLE CLARK: 2
-LAURA RODRIGUEZ: 2
-SARAH LEWIS: 2
-KIMBERLY LEE: 2
-DEBORAH WALKER: 2
-JESSICA HALL: 1
-SHIRLEY ALLEN: 1
-CYNTHIA YOUNG: 1
-ANGELA HERNANDEZ: 1
-MELISSA KING: 1
-BRENDA WRIGHT: 1
-AMY LOPEZ: 1
-ANNA HILL: 1
-REBECCA SCOTT: 1
-VIRGINIA GREEN: 1
-KATHLEEN ADAMS: 1
-PAMELA BAKER: 1
-MARTHA GONZALEZ: 1
-DEBRA NELSON: 1
-AMANDA CARTER: 1
 STEPHANIE MITCHELL: 1
 CAROLYN PEREZ: 1
 CHRISTINE ROBERTS: 1
@@ -287,6 +260,45 @@ ANDREA HENDERSON: 1
 KATHRYN COLEMAN: 1
 LOUISE B JENKINS: 1
 SARA A PERRY: 1
+PATRICIA JOHNSON: 3
+LINDA WILLIAMS: 3
+BARBARA JONES: 3
+ELIZABETH BROWN: 3
+JENNIFER DAVIS: 2
+MARIA MILLER: 2
+SUSAN WILSON: 2
+MARGARET MOORE: 2
+DOROTHY TAYLOR: 2
+LISA ANDERSON: 2
+NANCY THOMAS: 2
+KAREN JACKSON: 2
+BETTY WHITE: 2
+HELEN HARRIS: 2
+SANDRA MARTIN: 2
+DONNA THOMPSON: 2
+CAROL GARCIA: 2
+RUTH MARTINEZ: 2
+SHARON ROBINSON: 2
+MICHELLE CLARK: 2
+LAURA RODRIGUEZ: 2
+SARAH LEWIS: 2
+KIMBERLY LEE: 2
+DEBORAH WALKER: 2
+JESSICA HALL: 1
+SHIRLEY ALLEN: 1
+CYNTHIA YOUNG: 1
+ANGELA HERNANDEZ: 1
+MELISSA KING: 1
+BRENDA WRIGHT: 1
+AMY LOPEZ: 1
+ANNA HILL: 1
+REBECCA SCOTT: 1
+VIRGINIA GREEN: 1
+KATHLEEN ADAMS: 1
+PAMELA BAKER: 1
+MARTHA GONZALEZ: 1
+DEBRA NELSON: 1
+AMANDA CARTER: 1
 ANNE J POWELL: 1
 JACQUELINE K LONG: 1
 WANDA M PATTERSON: 1
@@ -317,13 +329,18 @@ What it tests:
 - Error handling for a missing file
 - Remaining valid files continue to run
 
-Expected stdout:
+Expected PID.err output:
 
 ```text
 error: cannot open file test/names99.txt
 Warning - file test/names1.txt line 3 is empty.
-Tom Wu: 4
+```
+
+Expected PID.out output:
+
+```text
 Jenn Xu: 2
+Tom Wu: 4
 ```
 
 ## Lessons learned
